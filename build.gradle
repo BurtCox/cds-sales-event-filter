@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
+    }
+}
+
+plugins {
+	id 'io.spring.dependency-management' version '1.0.1.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'cds-sales-event-filter'
+    version =  '0.1.0'
+}
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+    maven { url "https://nexus-tools.swacorp.com/AIS/content/groups/public/" }
+    maven { url "https://jitpack.io" }  // Allows github repository
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.apache.logging.log4j:log4j-bom:2.10.0'
+	}
+}
+
+dependencies {
+	compile("org.apache.logging.log4j:log4j-api")
+	compile("org.apache.logging.log4j:log4j-core")
+    compile("org.springframework.boot:spring-boot-starter-activemq")
+    compile("com.github.BurtCox:embassy-file:master-SNAPSHOT")    
+}
